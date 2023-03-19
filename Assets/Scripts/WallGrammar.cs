@@ -4,31 +4,25 @@ using UnityEngine;
 
 public class WallGrammar : MyShape
 {
-    //GameObject buildingBlock;
     [SerializeField] private int length;
     [SerializeField] private GameObject wallPanel;
-    Vector3 direction;
-    Quaternion rotation;
+    [SerializeField] private Quaternion rotation;
 
-    private void Start()
+    public void Initialize(GameObject wallPanel, Quaternion rotation, int length)
     {
-        Initialize(new Vector3(0, 0, 1), Quaternion.Euler(0,90,0));
-        GenerateWall();
-    }
-    private void Initialize(Vector3 direction, Quaternion rotation)
-    {
-        this.direction = direction;
         this.rotation = rotation;
+        this.length = length;
+        this.wallPanel = wallPanel;
     }
 
-
-    private void GenerateWall()
+    
+    public void GenerateWall()
     {
-        Vector3 wallPos = Vector3.zero;
+        Vector3 wallPos = new Vector3(.5f, 0, 0);//direction.normalized * .5f;//new Vector3(0, 0, 0);//Vector3.zero;
         for (int i = 0; i < length; i++)
         {
             SpawnPrefab(wallPanel, wallPos, rotation);
-            wallPos += direction;
+            wallPos += new Vector3(1, 0, 0);//direction;
         }
     }
 
