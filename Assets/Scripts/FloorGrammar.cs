@@ -29,7 +29,9 @@ public class FloorGrammar : MyShape
             //axis
             Vector3 axisUnclamped = i % 2 == 0 ? new Vector3(size.x, 0, 0) : new Vector3(0, 0, size.z);
 
-            wallGrammar.Initialize(_prefab, Quaternion.identity, (int)size.x);
+            int length = (int)axisUnclamped.magnitude;
+
+            wallGrammar.Initialize(_prefab, Quaternion.identity, length);
             wallGrammar.GenerateWall();
             if (i < 2) pos += axisUnclamped;
             else pos -= axisUnclamped;

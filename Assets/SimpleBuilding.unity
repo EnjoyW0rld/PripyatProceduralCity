@@ -153,11 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounds:
-    m_Center: {x: 0.04256776, y: 0, z: 0}
-    m_Extent: {x: 3, y: 0, z: 3}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 4, y: 0, z: 3.5}
   wallPanel: {fileID: 2828468909282008676, guid: b27e6d2ecc0a1374ba1a98a9fb6dd69d,
     type: 3}
-  floors: 8
+  floors: 2
 --- !u!4 &644317260
 Transform:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644317258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.49, y: 0, z: 0}
+  m_LocalPosition: {x: 29.94, y: 0, z: -0.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -506,7 +506,6 @@ MonoBehaviour:
   length: 4
   wallPanel: {fileID: 2828468909282008676, guid: b27e6d2ecc0a1374ba1a98a9fb6dd69d,
     type: 3}
-  direction: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1880013506
 Transform:
