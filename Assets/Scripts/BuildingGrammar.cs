@@ -7,6 +7,8 @@ public class BuildingGrammar : MyShape
     [SerializeField] public Bounds bounds;
     [SerializeField] private GameObject wallPanel;
     [SerializeField] private int floors;
+    [SerializeField] public int scaleFactor;
+
 
     /**
     public void GenerateFloor()
@@ -33,14 +35,19 @@ public class BuildingGrammar : MyShape
     }
         /**/
 
+    private void Start()
+    {
+        //wallPanel.
+    }
+
     public void GenerateBuilding()
     {
         for (int i = 0; i < floors; i++)
         {
             Vector3 startPos = bounds.min;
-            startPos.y = i;
+            startPos.y = i * scaleFactor;
             FloorGrammar floorGrammar = CreateSymbol<FloorGrammar>("floor", bounds.center, Quaternion.identity);
-            floorGrammar.Initialize(startPos, bounds.size, wallPanel);
+            floorGrammar.Initialize(startPos, bounds.size, wallPanel,scaleFactor);
             floorGrammar.GenerateFloor();
         }
     }

@@ -26,7 +26,13 @@ public class BuildingGrammarEditor : Editor
             Undo.RecordObject(grammar, "bounds change");
             Bounds newBounds = new Bounds();
             //newBounds.center = boxBoundsHandle.center;
-            newBounds.size = new Vector3((int)boxBoundsHandle.size.x, boxBoundsHandle.size.y, (int)boxBoundsHandle.size.z);
+            Vector3Int intBounds = Vector3Int.RoundToInt(boxBoundsHandle.size);
+
+            int xScale = intBounds.x - intBounds.x % grammar.scaleFactor;// * ((int)(boxBoundsHandle.size.x) % 2 == 0 ? 1 : 0);
+            int zScale = intBounds.z - intBounds.z % grammar.scaleFactor;// * ((int)(boxBoundsHandle.size.x) % 2 == 0 ? 1 : 0);
+            
+
+            newBounds.size = new Vector3(xScale, boxBoundsHandle.size.y, zScale);
             grammar.bounds = newBounds;
             EditorUtility.SetDirty(grammar);
         }
