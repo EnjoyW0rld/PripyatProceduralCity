@@ -19,8 +19,16 @@ public class RoadPlacerEditor : Editor
                     Undo.RecordObject(placer, "handle move");
                     placer.junctions[i].junctionPos = junctPos;
                 }
+                if (placer.junctions[i].ids != null)
+                {
+                    for (int f = 0; f < placer.junctions[i].ids.Length; f++)
+                    {
+                        Handles.DrawLine(placer.junctions[placer.junctions[i].ids[f]].junctionPos, placer.junctions[i].junctionPos);
+                    }
+                }
             }
         }
+        /*
         if (placer.connections != null)
         {
             for (int i = 0; i < placer.connections.Length; i++)
@@ -29,6 +37,8 @@ public class RoadPlacerEditor : Editor
                 Handles.DrawLine(placer.junctions[placer.connections[i].ids[0]].junctionPos, placer.junctions[placer.connections[i].ids[1]].junctionPos);
             }
         }
+         */
+
         //Check where pressed
         if (Event.current.type == EventType.KeyDown)
         {

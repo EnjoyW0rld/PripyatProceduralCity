@@ -7,39 +7,62 @@ public class RoadPlacer : MonoBehaviour
 {
     [SerializeField] private GameObject roadPrefab;
     [SerializeField, Min(0.1f)] private float scaleFactor;
-    //[SerializeField] public Vector3 pos;
+    [SerializeField] private GameObject turnPrefab;
+
     public RoadJunction[] junctions;
-    public Connection[] connections;
+    //public Connection[] connections;
 
     private List<GameObject> placedTiles = new List<GameObject>();
     public void PlaceRoad()
     {
-        for (int i = 0; i < connections.Length; i++)
+        
+        for (int i = 0; i < junctions.Length; i++)
         {
-            SpawnConnection(connections[i]);
+            SpawnJunction(junctions[i]);
         }
     }
 
 
-    private void SpawnConnection(Connection connection)
+    private void SpawnJunction(RoadJunction junction)
     {
-        //direction to build road
-        Vector3 direction = (junctions[connection.ids[0]].junctionPos - junctions[connection.ids[1]].junctionPos).normalized;
-        //amount of road tiles to place
-        float length = (junctions[connection.ids[0]].junctionPos - junctions[connection.ids[1]].junctionPos).magnitude / scaleFactor;
-        //parent game object for road tiles
+        if (junction.ids.Length == 2)
+        {
+            GameObject turn = Instantiate(turnPrefab, transform);
+            placedTiles.Add(turn);
+            Vector3 dirToZero = (junctions[junction.ids[0]].junctionPos - junction.junctionPos).normalized;
+            turn.transform.position = junction.junctionPos;
+            turn.transform.forward = dirToZero;
+            Vector3 dirToFirst = (junctions[junction.ids[1]].junctionPos - junction.junctionPos).normalized;
+            //Cross product to determine wher need to turn road
+            Vector3 cross = Vector3.Cross(dirToZero, dirToFirst);
+            //Mirroring turn accordingly to where it is facing
+            turn.transform.localScale = new Vector3(
+                turn.transform.localScale.x * (cross.y > 0 ? -1 : 1)
+                , turn.transform.localScale.y,
+                turn.transform.localScale.z);
+
+            for (int i = 0; i < junction.ids.Length; i++)
+            {
+                SpawnConnection(junction.junctionPos, junctions[junction.ids[i]].junctionPos);
+            }
+        }
+    }
+
+    private void SpawnConnection(Vector3 startPos, Vector3 desiredPos)
+    {
+        Vector3 direction = (startPos - desiredPos).normalized;
+        startPos -= (direction * scaleFactor) / 2f;
+        float length = (startPos - desiredPos).magnitude / scaleFactor;
         GameObject newParent = new GameObject("parentForConnection");
         newParent.transform.parent = transform;
-        //Starting position of tiles
-        Vector3 startPos = junctions[connection.ids[0]].junctionPos;
-        for (int i = 0; i < length; i++)
+        for (int i = 1; i < length; i++)
         {
-            SpawnTwoRoads(startPos - (direction * i * scaleFactor), Quaternion.LookRotation(direction, Vector3.up),newParent.transform);
+            SpawnTwoRoads(startPos - (direction * i * scaleFactor), Quaternion.LookRotation(direction, Vector3.up), newParent.transform);
         }
         placedTiles.Add(newParent);
-
     }
-    private void SpawnTwoRoads(Vector3 pos, Quaternion dir,Transform parent)
+
+    private void SpawnTwoRoads(Vector3 pos, Quaternion dir, Transform parent)
     {
         for (int i = 0; i < 2; i++)
         {
@@ -88,13 +111,11 @@ public class RoadPlacer : MonoBehaviour
     }
 }
 
-[Serializable]
-public class Connection
-{
-    public int[] ids = new int[2];
-}
+
 [Serializable]
 public class RoadJunction
 {
     public Vector3 junctionPos;
+    public int[] ids;
+    public bool placed;
 }

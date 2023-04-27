@@ -6,6 +6,7 @@ public class BuildingGrammar : MyShape
 {
     [SerializeField] public Bounds bounds;
     [SerializeField] private GameObject wallPanel;
+    [SerializeField] private GameObject roofPrefab;
     [SerializeField] private int floors;
     [SerializeField] public int scaleFactor;
 
@@ -55,15 +56,13 @@ public class BuildingGrammar : MyShape
 
     private void GenerateRoof()
     {
-        GameObject roof = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        GameObject roof = Instantiate(roofPrefab, transform);//GameObject.CreatePrimitive(PrimitiveType.Plane);
         createdObjects.Add(roof);
         roof.gameObject.name = "roof";
-        roof.transform.parent = this.transform;
+        //roof.transform.parent = this.transform;
         roof.transform.position = new Vector3(transform.position.x, scaleFactor * floors + 0.01f, transform.position.z);
-        roof.transform.localScale = new Vector3(bounds.extents.x / 5f, 0, bounds.extents.z / 5f);
-        //roof.transform.position = new Vector3(0,20,0);
-
-        //roof.transform.position = bounds.min;
+        roof.transform.localScale = new Vector3(bounds.extents.x / (scaleFactor / 2f), roof.transform.localScale.y, bounds.extents.z / (scaleFactor / 2f));
+        roof.isStatic = true;
     }
     [ContextMenu("Execute")]
     protected override void Execute()
