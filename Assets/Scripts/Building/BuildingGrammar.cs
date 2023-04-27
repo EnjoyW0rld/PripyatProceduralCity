@@ -10,6 +10,7 @@ public class BuildingGrammar : MyShape
     [SerializeField] private int floors;
     [SerializeField] public int scaleFactor;
 
+    [SerializeField] private FloorTiles[] floorTiles;
 
     /**
     public void GenerateFloor()
@@ -40,6 +41,31 @@ public class BuildingGrammar : MyShape
     {
         //wallPanel.
     }
+    private FloorTiles GetFloorType(int floor)
+    {
+        if (floor == 0)
+        {
+            for (int i = 0; i < floorTiles.Length; i++)
+            {
+                if (floorTiles[i].floorType == FloorTiles.TargetFloor.First)
+                {
+                    return floorTiles[i];
+                }
+            }
+        }
+        else if (floor == floors - 1)
+        {
+            for (int i = 0; i < floorTiles.Length; i++)
+            {
+                if (floorTiles[i].floorType == FloorTiles.TargetFloor.Last)
+                {
+                    return floorTiles[i];
+                }
+            }
+        }
+
+        return floorTiles[Random.Range(0, floorTiles.Length)];
+    }
 
     public void GenerateBuilding()
     {
@@ -48,7 +74,7 @@ public class BuildingGrammar : MyShape
             Vector3 startPos = bounds.min;
             startPos.y = i * scaleFactor;
             FloorGrammar floorGrammar = CreateSymbol<FloorGrammar>("floor", bounds.center, Quaternion.identity);
-            floorGrammar.Initialize(startPos, bounds.size, wallPanel, scaleFactor);
+            floorGrammar.Initialize(startPos, bounds.size, GetFloorType(i), scaleFactor);
             floorGrammar.GenerateFloor();
         }
         GenerateRoof();

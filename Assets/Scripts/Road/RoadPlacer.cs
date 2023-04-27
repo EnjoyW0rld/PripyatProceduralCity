@@ -15,7 +15,7 @@ public class RoadPlacer : MonoBehaviour
     private List<GameObject> placedTiles = new List<GameObject>();
     public void PlaceRoad()
     {
-        
+
         for (int i = 0; i < junctions.Length; i++)
         {
             SpawnJunction(junctions[i]);
@@ -25,25 +25,27 @@ public class RoadPlacer : MonoBehaviour
 
     private void SpawnJunction(RoadJunction junction)
     {
-        if (junction.ids.Length == 2)
+        if (junction.connections.Length == 2)
         {
             GameObject turn = Instantiate(turnPrefab, transform);
             placedTiles.Add(turn);
-            Vector3 dirToZero = (junctions[junction.ids[0]].junctionPos - junction.junctionPos).normalized;
+            Vector3 dirToZero = (junctions[junction.connections[0]].junctionPos - junction.junctionPos).normalized;
             turn.transform.position = junction.junctionPos;
             turn.transform.forward = dirToZero;
-            Vector3 dirToFirst = (junctions[junction.ids[1]].junctionPos - junction.junctionPos).normalized;
+            Vector3 dirToFirst = (junctions[junction.connections[1]].junctionPos - junction.junctionPos).normalized;
+
             //Cross product to determine wher need to turn road
             Vector3 cross = Vector3.Cross(dirToZero, dirToFirst);
+
             //Mirroring turn accordingly to where it is facing
             turn.transform.localScale = new Vector3(
                 turn.transform.localScale.x * (cross.y > 0 ? -1 : 1)
                 , turn.transform.localScale.y,
                 turn.transform.localScale.z);
 
-            for (int i = 0; i < junction.ids.Length; i++)
+            for (int i = 0; i < junction.connections.Length; i++)
             {
-                SpawnConnection(junction.junctionPos, junctions[junction.ids[i]].junctionPos);
+                SpawnConnection(junction.junctionPos, junctions[junction.connections[i]].junctionPos);
             }
         }
     }
@@ -83,6 +85,10 @@ public class RoadPlacer : MonoBehaviour
             }
             placedTiles.Clear();
         }
+        for (int i = 0; i < junctions.Length; i++)
+        {
+            junctions[i].placed = false;
+        }
     }
     private void OnDrawGizmosSelected()
     {
@@ -116,6 +122,33 @@ public class RoadPlacer : MonoBehaviour
 public class RoadJunction
 {
     public Vector3 junctionPos;
-    public int[] ids;
+    public int[] connections;
     public bool placed;
+
+    public void AddConnection(int id)
+    {
+        if (connections == null)
+        {
+            connections = new int[] { id };
+            Debug.Log("now has connection " + connections.Length);
+        }
+        else
+        {
+            for (int i = 0; i < connections.Length; i++)
+            {
+                if (connections[i] == id) return;
+            }
+            int[] temp = new int[connections.Length + 1];
+            /*
+            for (int i = 0; i < connections.Length; i++)
+            {
+                temp[i] = connections[i];
+            }
+             */
+            connections.CopyTo(temp, 0);
+            temp[connections.Length] = id;
+            connections = temp;
+            Debug.Log("now has connection " + connections.Length);
+        }
+    }
 }

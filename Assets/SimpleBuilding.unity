@@ -157,14 +157,17 @@ MonoBehaviour:
   turnPrefab: {fileID: 7486332331611667966, guid: a77f1c10ff2a8e244a6f84e15f2f7475,
     type: 3}
   junctions:
-  - junctionPos: {x: 13.600822, y: 0, z: -25.501661}
-    ids: 
+  - junctionPos: {x: 8.2786, y: 0.3822441, z: 12.7058735}
+    connections: 0300000001000000
     placed: 0
-  - junctionPos: {x: 8.363519, y: 0, z: -59.89278}
-    ids: 0000000002000000
+  - junctionPos: {x: 8.379893, y: 0, z: -63.43305}
+    connections: 0000000002000000
     placed: 0
-  - junctionPos: {x: -32.214104, y: 0, z: -61.67152}
-    ids: 
+  - junctionPos: {x: -32.16243, y: 0, z: -61.83605}
+    connections: 0100000003000000
+    placed: 0
+  - junctionPos: {x: -32.79802, y: 0, z: 11.344883}
+    connections: 0000000002000000
     placed: 0
 --- !u!4 &497520973
 Transform:
@@ -212,13 +215,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 4.5, y: 0, z: 4.5}
+    m_Extent: {x: 4.5, y: 0, z: 13.5}
   wallPanel: {fileID: 6613431091994503266, guid: 9276273ee59a5754a889e306817694f5,
     type: 3}
   roofPrefab: {fileID: 603809310846536266, guid: af54e4c44580e8641b519507c330ab93,
     type: 3}
   floors: 5
   scaleFactor: 3
+  floorTiles:
+  - {fileID: 11400000, guid: 8dba82ecb5d76b84aa8126fbb3bf19d3, type: 2}
 --- !u!4 &644317260
 Transform:
   m_ObjectHideFlags: 0
@@ -691,8 +696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 4
-  wallPanel: {fileID: 2828468909282008676, guid: b27e6d2ecc0a1374ba1a98a9fb6dd69d,
-    type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1880013506
 Transform:
