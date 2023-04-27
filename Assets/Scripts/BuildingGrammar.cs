@@ -47,11 +47,24 @@ public class BuildingGrammar : MyShape
             Vector3 startPos = bounds.min;
             startPos.y = i * scaleFactor;
             FloorGrammar floorGrammar = CreateSymbol<FloorGrammar>("floor", bounds.center, Quaternion.identity);
-            floorGrammar.Initialize(startPos, bounds.size, wallPanel,scaleFactor);
+            floorGrammar.Initialize(startPos, bounds.size, wallPanel, scaleFactor);
             floorGrammar.GenerateFloor();
         }
+        GenerateRoof();
     }
 
+    private void GenerateRoof()
+    {
+        GameObject roof = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        createdObjects.Add(roof);
+        roof.gameObject.name = "roof";
+        roof.transform.parent = this.transform;
+        roof.transform.position = new Vector3(transform.position.x, scaleFactor * floors + 0.01f, transform.position.z);
+        roof.transform.localScale = new Vector3(bounds.extents.x / 5f, 0, bounds.extents.z / 5f);
+        //roof.transform.position = new Vector3(0,20,0);
+
+        //roof.transform.position = bounds.min;
+    }
     [ContextMenu("Execute")]
     protected override void Execute()
     {
