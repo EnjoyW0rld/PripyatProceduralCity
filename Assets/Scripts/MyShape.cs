@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MyShape : MonoBehaviour
 {
-	List<GameObject> createdObjects;
+	protected List<GameObject> createdObjects;
 
     GameObject root = null;
     public GameObject Root

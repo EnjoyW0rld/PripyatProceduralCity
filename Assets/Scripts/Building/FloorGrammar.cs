@@ -7,10 +7,18 @@ public class FloorGrammar : MyShape
     [SerializeField] private int _width;
     [SerializeField] private int _length;
     [SerializeField] private GameObject _prefab;
+    private FloorTiles _tiles;
     private Vector3 size;
     private Vector3 start;
     private int scaleFactor;
 
+    public void Initialize(Vector3 startPos, Vector3 size, FloorTiles floorTiles, int scaleFactor)
+    {
+        this.size = size;
+        this.scaleFactor = scaleFactor;
+        this._tiles = floorTiles;
+        this.start = startPos;
+    }
     public void Initialize(Vector3 startPos, Vector3 size, GameObject panel, int scaleFactor)
     {
         this.size = size;
@@ -33,7 +41,7 @@ public class FloorGrammar : MyShape
 
             int length = (int)axisUnclamped.magnitude / scaleFactor;// / scaleFactor;
 
-            wallGrammar.Initialize(_prefab, Quaternion.identity, length, scaleFactor);
+            wallGrammar.Initialize(_tiles, Quaternion.identity, length, scaleFactor);
             wallGrammar.GenerateWall();
             if (i < 2) pos += axisUnclamped;
             else pos -= axisUnclamped;
