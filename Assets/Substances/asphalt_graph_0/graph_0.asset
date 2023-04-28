@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: graph_0
   m_EditorClassIdentifier: 
   AssetPath: Assets/Substances/asphalt.sbsar
-  OutputPath: Assets/Substances/asphalt_graph_0
+  OutputPath: Assets\Substances\asphalt_graph_0
   RawData: {fileID: -244192453324840774, guid: 7bc92603f393bd849b8244c9fad61dcd, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: e6f2241e-b4a7-4314-a8cd-ac7ec23d4fcf
+  GUID: 844d9128-673d-4f11-8f44-0f06f33a4bfb
   Index: 0
   Input:
-  - rid: 5678100775242301484
-  - rid: 5678100775242301485
+  - rid: 8573331513325387782
+  - rid: 8573331513325387783
   Output:
   - Index: 0
     VirtualOutputIndex: 7
@@ -155,7 +155,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 5678100775242301484
+    - rid: 8573331513325387782
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 5678100775242301485
+    - rid: 8573331513325387783
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1

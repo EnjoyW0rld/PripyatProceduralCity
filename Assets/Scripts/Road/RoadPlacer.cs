@@ -8,14 +8,16 @@ public class RoadPlacer : MonoBehaviour
     [SerializeField] private GameObject roadPrefab;
     [SerializeField, Min(0.1f)] private float scaleFactor;
     [SerializeField] private GameObject turnPrefab;
+    [SerializeField] private GameObject TturnPrefab;
+    [SerializeField] private GameObject crossRoadPrefab;
 
     public RoadJunction[] junctions;
     //public Connection[] connections;
 
+
     private List<GameObject> placedTiles = new List<GameObject>();
     public void PlaceRoad()
     {
-
         for (int i = 0; i < junctions.Length; i++)
         {
             SpawnJunction(junctions[i]);
@@ -43,21 +45,59 @@ public class RoadPlacer : MonoBehaviour
                 , turn.transform.localScale.y,
                 turn.transform.localScale.z);
 
-            for (int i = 0; i < junction.connections.Length; i++)
+
+        }
+        else if (junction.connections.Length == 3)
+        {
+            GameObject Tturn = Instantiate(TturnPrefab, transform);
+            placedTiles.Add(Tturn);
+            Tturn.transform.forward = FindFrontForTturn(junction);
+            Tturn.transform.position = junction.junctionPos;
+        }
+        else if (junction.connections.Length == 4)
+        {
+            GameObject crossRoad = Instantiate(crossRoadPrefab, transform);
+            placedTiles.Add(crossRoad);
+            crossRoad.transform.forward = (junctions[junction.connections[0]].junctionPos - junction.junctionPos).normalized;
+            crossRoad.transform.position = junction.junctionPos;
+        }
+        for (int i = 0; i < junction.connections.Length; i++)
+        {
+            if (junction.placed || junctions[junction.connections[i]].placed) continue;
+            SpawnConnection(junction.junctionPos, junctions[junction.connections[i]].junctionPos);
+        }
+        junction.placed = true;
+    }
+
+    private Vector3 FindFrontForTturn(RoadJunction junction)
+    {
+        Vector3[] directions = new Vector3[3];
+        for (int i = 0; i < 3; i++)
+        {
+            directions[i] = (junctions[junction.connections[i]].junctionPos - junction.junctionPos).normalized;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            int perpRoads = 0;
+            for (int f = 0; f < 3; f++)
             {
-                SpawnConnection(junction.junctionPos, junctions[junction.connections[i]].junctionPos);
+                if (i == f) continue;
+                float dot = Vector3.Dot(directions[i], directions[f]);
+                if (dot > -0.01f && dot < 0.01f) perpRoads++;
+                if (perpRoads == 2) return directions[i];
             }
         }
+        return Vector3.zero;
     }
 
     private void SpawnConnection(Vector3 startPos, Vector3 desiredPos)
     {
         Vector3 direction = (startPos - desiredPos).normalized;
-        startPos -= (direction * scaleFactor) / 2f;
+        //startPos -= (direction * scaleFactor) / 2f;
         float length = (startPos - desiredPos).magnitude / scaleFactor;
         GameObject newParent = new GameObject("parentForConnection");
         newParent.transform.parent = transform;
-        for (int i = 1; i < length; i++)
+        for (int i = 1; i < length - 1; i++)
         {
             SpawnTwoRoads(startPos - (direction * i * scaleFactor), Quaternion.LookRotation(direction, Vector3.up), newParent.transform);
         }
@@ -66,7 +106,7 @@ public class RoadPlacer : MonoBehaviour
 
     private void SpawnTwoRoads(Vector3 pos, Quaternion dir, Transform parent)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             Vector3 angle = new Vector3(0, 180 * i, 0);
             GameObject obj = Instantiate(roadPrefab, pos, Quaternion.Euler(angle) * dir);
@@ -115,7 +155,8 @@ public class RoadPlacer : MonoBehaviour
         }
         return -1;
     }
-}
+    public float GetScale() => scaleFactor;
+} 
 
 
 [Serializable]

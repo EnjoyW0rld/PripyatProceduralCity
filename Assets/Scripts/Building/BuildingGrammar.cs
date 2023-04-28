@@ -36,11 +36,6 @@ public class BuildingGrammar : MyShape
         }
     }
         /**/
-
-    private void Start()
-    {
-        //wallPanel.
-    }
     private FloorTiles GetFloorType(int floor)
     {
         if (floor == 0)
@@ -90,6 +85,11 @@ public class BuildingGrammar : MyShape
         roof.transform.localScale = new Vector3(bounds.extents.x / (scaleFactor / 2f), roof.transform.localScale.y, bounds.extents.z / (scaleFactor / 2f));
         roof.isStatic = true;
     }
+    public void Regenerate()
+    {
+        Execute();
+    }
+
     [ContextMenu("Execute")]
     protected override void Execute()
     {

@@ -46,7 +46,8 @@ public class BuildingGrammarEditor : Editor
 
         if (GUILayout.Button("Execute"))
         {
-            grammar.GenerateBuilding();
+            grammar.Regenerate();
+            //grammar.GenerateBuilding();
         }
         if (GUILayout.Button("Delete generated"))
         {
