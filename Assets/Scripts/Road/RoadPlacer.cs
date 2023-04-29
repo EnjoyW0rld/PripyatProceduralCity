@@ -1,12 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadPlacer : MonoBehaviour
 {
-    [SerializeField] private GameObject roadPrefab;
     [SerializeField, Min(0.1f)] private float scaleFactor;
+    [SerializeField] private MiscObject[] miscObjects;
+    [Header("Road prefabs")]
+    [SerializeField] private GameObject roadPrefab;
     [SerializeField] private GameObject turnPrefab;
     [SerializeField] private GameObject TturnPrefab;
     [SerializeField] private GameObject crossRoadPrefab;
@@ -93,13 +94,15 @@ public class RoadPlacer : MonoBehaviour
     private void SpawnConnection(Vector3 startPos, Vector3 desiredPos)
     {
         Vector3 direction = (startPos - desiredPos).normalized;
-        //startPos -= (direction * scaleFactor) / 2f;
-        float length = (startPos - desiredPos).magnitude / scaleFactor;
+
+        float length = Vector3.Distance(startPos, desiredPos) / scaleFactor;
         GameObject newParent = new GameObject("parentForConnection");
         newParent.transform.parent = transform;
-        for (int i = 1; i < length - 1; i++)
+       
+        for (int i = 1; i <= length - 1; i++)
         {
-            SpawnTwoRoads(startPos - (direction * i * scaleFactor), Quaternion.LookRotation(direction, Vector3.up), newParent.transform);
+            if (length == 3) Debug.Log(length);
+                SpawnTwoRoads(startPos - (direction * i * scaleFactor), Quaternion.LookRotation(direction, Vector3.up), newParent.transform);
         }
         placedTiles.Add(newParent);
     }
@@ -112,6 +115,24 @@ public class RoadPlacer : MonoBehaviour
             GameObject obj = Instantiate(roadPrefab, pos, Quaternion.Euler(angle) * dir);
             placedTiles.Add(obj);
             obj.transform.parent = parent; //set parent for created object
+            TrySpawnMisc(pos);
+        }
+    }
+    private void TrySpawnMisc(Vector3 pos)
+    {
+        if (miscObjects == null) return;
+
+        for (int i = 0; i < miscObjects.Length; i++)
+        {
+            float val = Random.Range(0f, 1f);
+            if (miscObjects[i].SpawnChance >= val)
+            {
+                Vector3 place = pos + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+                GameObject temp = Instantiate(miscObjects[i].miscPrefab, transform);
+                temp.transform.position = place;
+                placedTiles.Add(temp);
+                break;
+            }
         }
     }
 
@@ -156,10 +177,10 @@ public class RoadPlacer : MonoBehaviour
         return -1;
     }
     public float GetScale() => scaleFactor;
-} 
+}
 
 
-[Serializable]
+[System.Serializable]
 public class RoadJunction
 {
     public Vector3 junctionPos;
@@ -192,4 +213,11 @@ public class RoadJunction
             Debug.Log("now has connection " + connections.Length);
         }
     }
+}
+
+[System.Serializable]
+public class MiscObject
+{
+    public GameObject miscPrefab;
+    [Range(0,1)]public float SpawnChance;
 }

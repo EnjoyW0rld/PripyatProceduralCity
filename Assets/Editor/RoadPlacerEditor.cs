@@ -122,17 +122,9 @@ public class RoadPlacerEditor : Editor
             junct1.junctionPos.x = junct2.junctionPos.x;
             float length = (int)((junct1.junctionPos - junct2.junctionPos).magnitude / scale);
             Vector3 dir = (junct1.junctionPos - junct2.junctionPos).normalized;
-            junct1.junctionPos.z = (junct2.junctionPos + (dir * length * (scale + 0.01f))).z;
+            junct1.junctionPos.z = (junct2.junctionPos + (dir * length * (scale))).z;
 
 
-            if (length > scale / 2)
-            {
-                //junct1.junctionPos.z += (dir * (scale - length)).z - 0.001f;
-            }
-            else
-            {
-                //junct1.junctionPos.z += (dir * (-length)).z - 0.001f;
-            }
         }
         else
         {
@@ -140,18 +132,9 @@ public class RoadPlacerEditor : Editor
             float length = (int)((junct1.junctionPos - junct2.junctionPos).magnitude / scale);
             Debug.Log(length);
             Vector3 dir = (junct1.junctionPos - junct2.junctionPos).normalized;
-            junct1.junctionPos.x = (junct2.junctionPos + (dir * length * (scale + 0.01f))).x;
+            junct1.junctionPos.x = (junct2.junctionPos + (dir * length * (scale))).x;
 
-            if (length > scale / 2)
-            {
-                //junct1.junctionPos.x
-                //junct1.junctionPos.x += (dir * (scale - length)).x - 0.01f;
-            }
-            else
-            {
-                //junct1.junctionPos.x = (junct2.junctionPos + (dir * length)).x;
-                //junct1.junctionPos.x += (dir * (-length)).x + 0.01f;
-            }
+           
 
         }
 

@@ -14,13 +14,17 @@ public class BuildingGrammarEditor : Editor
         Vector3 pos = grammar.transform.position;
 
         //BoxBoundsHandle box = new BoxBoundsHandle();
-        boxBoundsHandle.center = grammar.transform.position;
+        //boxBoundsHandle.center = grammar.transform.position;
         Vector3 size = grammar.bounds.size;
         size.y = 0;
         boxBoundsHandle.size = size;
 
+        Matrix4x4 targ = Matrix4x4.TRS(grammar.transform.position, grammar.transform.rotation,Vector3.one);
         EditorGUI.BeginChangeCheck();
-        boxBoundsHandle.DrawHandle();
+        using (new Handles.DrawingScope(targ))
+        {
+            boxBoundsHandle.DrawHandle();
+        }
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(grammar, "bounds change");
@@ -30,7 +34,7 @@ public class BuildingGrammarEditor : Editor
 
             int xScale = intBounds.x - intBounds.x % grammar.scaleFactor;// * ((int)(boxBoundsHandle.size.x) % 2 == 0 ? 1 : 0);
             int zScale = intBounds.z - intBounds.z % grammar.scaleFactor;// * ((int)(boxBoundsHandle.size.x) % 2 == 0 ? 1 : 0);
-            
+
 
             newBounds.size = new Vector3(xScale, boxBoundsHandle.size.y, zScale);
             grammar.bounds = newBounds;

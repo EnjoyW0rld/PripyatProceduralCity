@@ -72,7 +72,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 2
   threshold:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   intensity:
     m_OverrideState: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0.75
   tint:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 0.5283019, g: 0.49092203, b: 0.49092203, a: 1}
   dirtTexture:
     m_OverrideState: 0
