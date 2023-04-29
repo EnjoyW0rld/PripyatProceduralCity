@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: graph_0
   m_EditorClassIdentifier: 
   AssetPath: Assets/Substances/window_frame.sbsar
-  OutputPath: Assets/Substances/window_frame_graph_0
+  OutputPath: Assets\Substances\window_frame_graph_0
   RawData: {fileID: -244192453324840774, guid: 32654e44e5b9b484d84641d9c7d52c87, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: e35186d3-f32e-4ce8-8580-ab2a9ed0eaee
+  GUID: f300931f-dc97-4938-91e4-3c1618f0dc4a
   Index: 0
   Input:
-  - rid: 5678100775242301504
-  - rid: 5678100775242301505
-  - rid: 5678100775242301506
+  - rid: 5678100818870140938
+  - rid: 5678100818870140939
+  - rid: 5678100818870140940
+  - rid: 5678100818870140941
   Output:
   - Index: 0
     VirtualOutputIndex: 7
@@ -156,7 +157,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 5678100775242301504
+    - rid: 5678100818870140938
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -175,7 +176,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 5678100775242301505
+    - rid: 5678100818870140939
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -197,7 +198,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 5678100775242301506
+    - rid: 5678100818870140940
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -215,6 +216,27 @@ MonoBehaviour:
           MinValue: 0.2
           MaxValue: 0.8
           SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 5678100818870140941
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 3
+        Description:
+          Identifier: outputcolor_1
+          Label: Color
+          GuiGroup: 
+          GuiDescription: The <b>Color Output</b> parameter creates a uniform color
+            output image
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0.5, y: 0.5, z: 0.5, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0.5, y: 0.5, z: 0.5, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
