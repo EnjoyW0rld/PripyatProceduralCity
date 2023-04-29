@@ -6,7 +6,7 @@ public class FloorGrammar : MyShape
 {
     [SerializeField] private int _width;
     [SerializeField] private int _length;
-    [SerializeField] private GameObject _prefab;
+    //[SerializeField] private GameObject _prefab;
     private FloorTiles _tiles;
     private Vector3 size;
     private Vector3 start;
@@ -18,13 +18,6 @@ public class FloorGrammar : MyShape
         this.scaleFactor = scaleFactor;
         this._tiles = floorTiles;
         this.start = startPos;
-    }
-    public void Initialize(Vector3 startPos, Vector3 size, GameObject panel, int scaleFactor)
-    {
-        this.size = size;
-        this.scaleFactor = scaleFactor;
-        this.start = startPos;
-        _prefab = panel;
     }
 
     public void GenerateFloor()
@@ -47,6 +40,12 @@ public class FloorGrammar : MyShape
             else pos -= axisUnclamped;
         }
 
+    }
+
+    public void Regenerate()
+    {
+        DeleteGenerated();
+        GenerateFloor();
     }
 
     protected override void Execute()

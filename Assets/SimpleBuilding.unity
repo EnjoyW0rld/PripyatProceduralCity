@@ -152,22 +152,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c69980d40ea7041b4bdae0fff8b986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadPrefab: {fileID: 100000, guid: ca2722c539df2234783afb64de449265, type: 3}
-  scaleFactor: 6
-  turnPrefab: {fileID: 7486332331611667966, guid: a77f1c10ff2a8e244a6f84e15f2f7475,
+  roadPrefab: {fileID: 9170717959964150135, guid: f7b96967b46812448905ffc2bfad4f41,
+    type: 3}
+  scaleFactor: 12
+  turnPrefab: {fileID: 2013358313425654771, guid: cab8653f6ecfc1d4b9d24c0157fa815f,
+    type: 3}
+  TturnPrefab: {fileID: 8972184297939416374, guid: 2347305cd67563a40b62d1ca4dfc57e3,
+    type: 3}
+  crossRoadPrefab: {fileID: 1159862858689496227, guid: ae9232b7e2c0e90438b44d310896ccad,
     type: 3}
   junctions:
-  - junctionPos: {x: 8.2786, y: 0.3822441, z: 12.7058735}
-    connections: 0300000001000000
+  - junctionPos: {x: 44.61111, y: 0, z: -69.95077}
+    connections: 020000000100000003000000
     placed: 0
-  - junctionPos: {x: 8.379893, y: 0, z: -63.43305}
-    connections: 0000000002000000
+  - junctionPos: {x: -32.16243, y: 0, z: -69.95077}
+    connections: 00000000
     placed: 0
-  - junctionPos: {x: -32.16243, y: 0, z: -61.83605}
-    connections: 0100000003000000
+  - junctionPos: {x: 44.61111, y: 0, z: -130.00076}
+    connections: 0000000005000000
     placed: 0
-  - junctionPos: {x: -32.79802, y: 0, z: 11.344883}
-    connections: 0000000002000000
+  - junctionPos: {x: 44.61111, y: 0, z: -21.949768}
+    connections: 0000000004000000
+    placed: 0
+  - junctionPos: {x: 104.66112, y: 0, z: -21.949768}
+    connections: 0300000005000000
+    placed: 0
+  - junctionPos: {x: 104.66112, y: 0, z: -130.00076}
+    connections: 0400000002000000
     placed: 0
 --- !u!4 &497520973
 Transform:
